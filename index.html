@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Personal Expense Tracker</h1>
+    <a href="{{ url_for('add_expense') }}">Add Expense</a>
+    
+    <h2>Expenses</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for expense in expenses %}
+            <tr>
+                <td>{{ expense['category'] }}</td>
+                <td>{{ expense['amount'] }}</td>
+                <td>{{ expense['description'] }}</td>
+                <td>{{ expense['date'] }}</td>
+                <td><a href="{{ url_for('delete_expense', id=expense['id']) }}">Delete</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Spending by Category</h2>
+    <canvas id="expenseChart"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='chart.js') }}"></script>
+</body>
+</html>
